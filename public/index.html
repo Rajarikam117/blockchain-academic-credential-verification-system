@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Credential Verification System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 Academic Credential Verification System</h1>
+            <p>Blockchain-powered credential storage and verification</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-button active" onclick="showTab('submit', this)">Submit Credential</button>
+            <button class="tab-button" onclick="showTab('verify', this)">Verify Credential</button>
+            <button class="tab-button" onclick="showTab('credentials', this)">View Credentials</button>
+            <button class="tab-button" id="edit-tab-button" onclick="showTab('edit', this)" style="display: none;">Edit Credential</button>
+        </nav>
+
+        <!-- Submit Credential Tab -->
+        <div id="submit-tab" class="tab-content active">
+            <div class="card">
+                <h2>Submit Academic Credential</h2>
+                <form id="credential-form">
+                    <div class="form-group">
+                        <label for="studentName">Student Name *</label>
+                        <input type="text" id="studentName" name="studentName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="institutionName">Institution Name *</label>
+                        <input type="text" id="institutionName" name="institutionName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="degree">Degree *</label>
+                        <input type="text" id="degree" name="degree" placeholder="e.g., Bachelor of Science" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fieldOfStudy">Field of Study *</label>
+                        <input type="text" id="fieldOfStudy" name="fieldOfStudy" placeholder="e.g., Computer Science" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="graduationDate">Graduation Date *</label>
+                        <input type="date" id="graduationDate" name="graduationDate" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit Credential</button>
+                </form>
+
+                <div id="submit-result" class="result-message"></div>
+            </div>
+        </div>
+
+        <!-- Verify Credential Tab -->
+        <div id="verify-tab" class="tab-content">
+            <div class="card">
+                <h2>Verify Credential</h2>
+                <form id="verify-form">
+                    <div class="form-group">
+                        <label for="verifyCredentialId">Credential ID *</label>
+                        <input type="text" id="verifyCredentialId" name="credentialId" placeholder="Enter credential ID" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Verify Credential</button>
+                </form>
+
+                <div id="verify-result" class="result-message"></div>
+                <div id="qr-code-display" class="qr-code-container"></div>
+            </div>
+        </div>
+
+        <!-- View Credentials Tab -->
+        <div id="credentials-tab" class="tab-content">
+            <div class="card">
+                <h2>All Credentials</h2>
+                <button onclick="loadCredentials()" class="btn btn-secondary">Refresh</button>
+                <div id="credentials-list" class="credentials-list"></div>
+            </div>
+        </div>
+
+        <!-- Edit Credential Tab -->
+        <div id="edit-tab" class="tab-content">
+            <div class="card">
+                <h2>Edit Academic Credential</h2>
+                <p class="edit-warning" style="color: #856404; background: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+                    ⚠️ Note: Credentials that are already stored on blockchain cannot be edited.
+                </p>
+                <form id="edit-credential-form">
+                    <input type="hidden" id="editCredentialId" name="credentialId">
+                    
+                    <div class="form-group">
+                        <label for="editStudentName">Student Name *</label>
+                        <input type="text" id="editStudentName" name="studentName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editInstitutionName">Institution Name *</label>
+                        <input type="text" id="editInstitutionName" name="institutionName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editDegree">Degree *</label>
+                        <input type="text" id="editDegree" name="degree" placeholder="e.g., Bachelor of Science" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editFieldOfStudy">Field of Study *</label>
+                        <input type="text" id="editFieldOfStudy" name="fieldOfStudy" placeholder="e.g., Computer Science" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editGraduationDate">Graduation Date *</label>
+                        <input type="date" id="editGraduationDate" name="graduationDate" required>
+                    </div>
+
+                    <div style="display: flex; gap: 10px;">
+                        <button type="submit" class="btn btn-primary">Update Credential</button>
+                        <button type="button" onclick="const btn = Array.from(document.querySelectorAll('.tab-button')).find(b => b.textContent.includes('View Credentials')); showTab('credentials', btn);" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+
+                <div id="edit-result" class="result-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
